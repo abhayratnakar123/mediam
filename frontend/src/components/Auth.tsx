@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { SignupInput } from "@100xdevs/medium-common";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const Auth = ({ type }: { type: "/" | "signin" }) => {
     const navigate = useNavigate();
@@ -11,22 +13,25 @@ export const Auth = ({ type }: { type: "/" | "signin" }) => {
         username: "",
         password: ""
     });
-
+    const [loading, setLoading] = useState(false);
     async function sendRequest() {
+        setLoading(true); 
         try {
             const response = await axios.post(`${BACKEND_URL}/api/v1/user/${type === "/" ? "signup" : "signin"}`, postInputs);
             const jwt = response.data;
             localStorage.setItem("token", jwt);
             navigate("/blogs");
         } catch(e) {
-            alert("Error while signing up")
+            toast.error("Error while signing up"); // Display toast notification for error
             console.log(e);
             
             // alert the user here that the request failed
         }
+        setLoading(false); 
     }
     
     return <div className="h-screen flex justify-center flex-col">
+        <ToastContainer />
         <div className="flex justify-center">
             <div>
                 <div className="px-10">
@@ -59,7 +64,8 @@ export const Auth = ({ type }: { type: "/" | "signin" }) => {
                             password: e.target.value
                         })
                     }} />
-                    <button onClick={sendRequest} type="button" className="mt-8 w-full text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">{type === "/" ? "Sign up" : "Sign in"}</button>
+                    <button onClick={sendRequest} type="button" className="mt-8 w-full text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"> 
+                    {loading ? 'Loading...' : (type === "/" ? "Sign up" : "Sign in")}</button>
                 </div>
             </div>
         </div>
@@ -76,6 +82,6 @@ interface LabelledInputType {
 function LabelledInput({ label, placeholder, onChange, type }: LabelledInputType) {
     return <div>
         <label className="block mb-2 text-sm text-black font-semibold pt-4">{label}</label>
-        <input onChange={onChange} type={type || "text"} id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder={placeholder} required />
+        <input onChange={onChange} required  type={type || "text"} id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder={placeholder}  />
     </div>
 }
