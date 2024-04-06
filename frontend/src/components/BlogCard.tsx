@@ -1,6 +1,5 @@
-import { Link,useNavigate } from "react-router-dom";
-import { BACKEND_URL } from "../config";
-import axios from "axios";
+import { Link } from "react-router-dom";
+
 
 interface BlogCardProps {
     authorName: string;
