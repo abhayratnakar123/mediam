@@ -1,8 +1,41 @@
+import { useNavigate } from "react-router-dom";
+import { BACKEND_URL } from "../config";
 import { Blog } from "../hooks"
 import { Appbar } from "./Appbar"
 import { Avatar } from "./BlogCard"
+import axios from "axios";
 
 export const FullBlog = ({ blog }: {blog: Blog}) => {
+
+    const navigate = useNavigate();
+    console.log("log blog" ,blog);
+const id = blog.id;
+console.log(id);
+
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    async function handleDelete(id:any ) {
+
+        const blogId = id;
+        console.log("Blog ID", blogId);
+    
+        try {
+            const response = await axios.delete(`${BACKEND_URL}/api/v1/blog/${id}`, {
+                headers: {
+                    Authorization: localStorage.getItem("token")
+                }
+            });
+            console.log("Blog deleted successfully:", response.data);
+             
+            navigate("/blogs")
+            // Optionally, you can perform any additional actions here after successful deletion
+        } catch (error) {
+            console.error("Error deleting blog:", error);
+            // Handle error scenarios here
+        }
+    }
+
+
     return <div>
         <Appbar />
         <div className="flex justify-center">
@@ -36,7 +69,11 @@ export const FullBlog = ({ blog }: {blog: Blog}) => {
                         </div>
                     </div>  
                 </div>
-                
+                <button 
+      onClick={() => handleDelete(id)}
+      className= " cursor-pointer h-10 mt-[4rem] text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ">
+          Delete
+      </button>
             </div>
         </div>
     </div>
