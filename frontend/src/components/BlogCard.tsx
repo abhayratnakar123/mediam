@@ -1,4 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
+import { BACKEND_URL } from "../config";
+import axios from "axios";
+
 interface BlogCardProps {
     authorName: string;
     title: string;
@@ -14,8 +17,8 @@ export const BlogCard = ({
     content,
     publishedDate
 }: BlogCardProps) => {
-     
-     return <div className="flex">
+
+    return <div className="flex">
       <Link to={`/blog/${id}`}>
         <div className="p-4 border-b border-slate-200 pb-4 w-screen max-w-screen-md cursor-pointer">
             <div className="flex">
@@ -53,7 +56,7 @@ export function Circle() {
 }
 
 export function Avatar({ name, size = "small" }: { name: string, size?: "small" | "big" }) {
-    return <div className={`relative inline-flex items-center justify-center overflow-hidden bg-gray-600 rounded-full ${size === "small" ? "w-6 h-6" : "w-10 h-10"}`}>
+    return <div className={`hidden relative lg:inline-flex items-center justify-center overflow-hidden bg-gray-600 rounded-full ${size === "small" ? "w-6 h-6" : "w-10 h-10"}`}>
     <span className={`${size === "small" ? "text-xs" : "text-md"} font-extralight text-gray-400 dark:text-gray-300`}>
         {name[0]}
     </span>

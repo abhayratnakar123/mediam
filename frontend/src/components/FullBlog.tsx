@@ -39,7 +39,7 @@ console.log(id);
     return <div>
         <Appbar />
         <div className="flex justify-center">
-            <div className="grid grid-cols-12 px-10 w-full pt-200 max-w-screen-xl pt-12">
+            <div className="grid  lg:grid-cols-2 px-10 w-full pt-200 max-w-screen-xl pt-12  justify-between ">
                 <div className="col-span-8">
                     <div className="text-5xl font-extrabold">
                         {blog.title}
@@ -51,11 +51,11 @@ console.log(id);
                         {blog.content}
                     </div>
                 </div>
-                <div className="col-span-4">
+                <div className="col-span-4 mt-10">
                     <div className="text-slate-600 text-lg">
                         Author
                     </div>
-                    <div className="flex w-full">
+                    <div className="flex w-full mt-3">
                         <div className="pr-4 flex flex-col justify-center">
                             <Avatar size="big" name={blog.author.name || "Anonymous"} />
                         </div>
@@ -71,7 +71,7 @@ console.log(id);
                 </div>
                 <button 
       onClick={() => handleDelete(id)}
-      className= " cursor-pointer h-10 mt-[4rem] text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ">
+      className= " cursor-pointer h-10 mt-[6rem] text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ">
           Delete
       </button>
             </div>
