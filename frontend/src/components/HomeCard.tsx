@@ -1,9 +1,10 @@
-import React from 'react';
-
-const HomeCard = ({ blogs  }) => {
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const HomeCard = ({ blogs  }:any ) => {
   return (
     <div className="cursor-pointer grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-    {blogs.map((blog, index) => (
+   
+    {blogs.map((blog : any , index: number) => (
       <div key={index} className="bg-white rounded-lg overflow-hidden shadow-md">
         <div className="p-6">
           <h2 className="text-xl font-semibold text-gray-800">{blog.title}</h2>
